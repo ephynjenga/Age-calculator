@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .age-calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color:aqua;
+            color: red;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p#ageFeedback {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="age-calculator">
+        <h1>Age Calculator</h1>
+        <label for="dob">Enter your date of birth (Year-Month-D  ate):</label>
+        <input type="text" id="dob" placeholder="YYYY-MM-DD" required>
+        <button type="button" onclick="calculateAge()">Calculate Age</button>
+        <p id="ageFeedback"></p>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const dobInput = document.getElementById('dob');
+            const dobValue = new Date(dobInput.value);
+            const today = new Date();
+
+            if (dobValue >= today) {
+                document.getElementById('ageFeedback').innerText = "Invalid date of birth. Please enter a valid date.";
+            } else {
+                const age = today.getFullYear() - dobValue.getFullYear();
+                const monthDiff = today.getMonth() - dobValue.getMonth();
+
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobValue.getDate())) {
+                    age--; // birthday has not occurred yet this year
+                }
+
+                document.getElementById('ageFeedback').innerText = "Your age is: " + age + " years.";
+            }
+        }
+    </script>
+</body>
+</html>
